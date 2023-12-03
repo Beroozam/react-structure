@@ -1,13 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
-import authenticationSlice from 'Components/Authentication/Slice'
-import dashboardSlice from 'Components/Dashboard/Slice'
 import {logoutAction} from "Components/Authentication/Slice"
-import {baseApi} from "Services/BaseApi";
+import {baseApi} from "states/baseApi";
 import { isRejectedWithValue,isPending,isAsyncThunkAction,isFulfilled } from '@reduxjs/toolkit'
 import { toast } from 'react-toastify';
-import appSlice, {backDropAction} from 'Components/Slice'
-import widgetSlice from "Components/Dashboard/Setting/Slice";
-import contextSlice from "Components/Dashboard/Contexts/Slice";
+import appSlice, {backDropAction} from 'states/slice'
 
 const authMiddleware = api  => next => action => {
   if (isRejectedWithValue(action)) {
@@ -27,11 +23,7 @@ const authMiddleware = api  => next => action => {
 
 export const store = configureStore({
   reducer: {
-    widget:widgetSlice.reducer,
-    authentication: authenticationSlice,
-    dashboard: dashboardSlice,
     app: appSlice,
-    context: contextSlice,
     [baseApi.reducerPath]: baseApi.reducer
   },
   middleware: getDefaultMiddleware => getDefaultMiddleware()
