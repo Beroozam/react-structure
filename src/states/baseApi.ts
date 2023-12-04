@@ -1,7 +1,6 @@
 import {BaseQueryFn} from "@reduxjs/toolkit/dist/query/react";
-import axios, {AxiosError, AxiosRequestConfig} from "axios";
 import {createApi} from "@reduxjs/toolkit/query/react";
-
+import axios, {AxiosError, AxiosRequestConfig} from "axios";
 
 type Fn = BaseQueryFn<
     {
@@ -38,6 +37,6 @@ const baseQuery: Fn = async ({ url, method, data, headers, params, fullResult=fa
 export const baseApi = createApi({
   reducerPath: 'splitApi',
   baseQuery: baseQuery,
-  tagTypes: ['datasets','intents','qas','contexts','package','sitemaps','sitemap_contexts','Validations','Inputs','Forms','FormsHistory','Users','widget','IntentsWithDetails'],
+  tagTypes: ['sampleTag'],
   endpoints: () => ({}),
 })

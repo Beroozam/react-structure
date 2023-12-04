@@ -1,8 +1,13 @@
-import { configureStore } from '@reduxjs/toolkit'
-import {logoutAction} from "Components/Authentication/Slice"
-import {baseApi} from "states/baseApi";
-import { isRejectedWithValue,isPending,isAsyncThunkAction,isFulfilled } from '@reduxjs/toolkit'
+import {
+  configureStore,
+  isRejectedWithValue,
+  isPending,
+  isAsyncThunkAction,
+  isFulfilled
+} from '@reduxjs/toolkit'
 import { toast } from 'react-toastify';
+import {logoutAction} from "components/authentication/slice"
+import {baseApi} from "states/baseApi";
 import appSlice, {backDropAction} from 'states/slice'
 
 const authMiddleware = api  => next => action => {

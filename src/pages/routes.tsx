@@ -1,26 +1,42 @@
-import {useRoutes} from "react-router-dom";
-import DashboardContainer from "Components/DashboardContainer";
-import Datasets from "Components/Dashboard/Datasets";
+import {Link,createBrowserRouter} from "react-router-dom";
+import Home from 'pages/home'
+import SharedLayout from "pages/sharedLayout";
 
 export default function Routes(){
-  const routes = useRoutes([
+  const routes = createBrowserRouter([
     {
-      id:"1",
+      element:<SharedLayout />,
       path:'/',
-      element:<DashboardContainer><Datasets type={"intent"}/></DashboardContainer>,
-      errorElement:<div>Error .......................</div>,
-      loader: async () => {
-        const delay = await new Promise((resolve) => setTimeout(resolve, 20000))
-        return delay
-      },
-
-    },
-    {
-      id:"2",
-      path:'/contexts',
-      element:<DashboardContainer><Datasets type={"qa_context"}/></DashboardContainer>
-    },
-
-  ])
+      children:[
+        {
+          index:true,
+          id:"1",
+          element:<Home />,
+          loader: async () => {
+            await new Promise((resolve) => setTimeout(resolve, 3000));
+            return null
+          }
+        },
+        {
+          id:"2",
+          path:'about',
+          children:[
+            {
+              index:true,
+              id:"3",
+              element:<Link to='me' className={`underline`}>About Me</Link>,
+            },
+            {
+              id:"4",
+              path:'me',
+              element:<div>I AM BEHROUZ MOHAMMADI</div>,
+            }
+          ]
+        }
+      ]
+    }
+  ],{
+    basename:process.env.PUBLIC_URL
+  })
   return routes
 }
