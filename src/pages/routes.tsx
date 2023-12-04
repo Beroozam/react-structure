@@ -1,9 +1,13 @@
-import {Link,createBrowserRouter} from "react-router-dom";
-import Home from 'pages/home'
+import {createBrowserRouter} from "react-router-dom";
+import useLayoutSelector from 'pages/pages'
 import SharedLayout from "pages/sharedLayout";
 
 export default function Routes(){
-  const routes = createBrowserRouter([
+  const {
+    home,
+      about
+  } = useLayoutSelector()
+  return createBrowserRouter([
     {
       element:<SharedLayout />,
       path:'/',
@@ -11,9 +15,9 @@ export default function Routes(){
         {
           index:true,
           id:"1",
-          element:<Home />,
+          element:home,
           loader: async () => {
-            await new Promise((resolve) => setTimeout(resolve, 3000));
+            await new Promise((resolve) => setTimeout(resolve, 1000));
             return null
           }
         },
@@ -24,7 +28,7 @@ export default function Routes(){
             {
               index:true,
               id:"3",
-              element:<Link to='me' className={`underline`}>About Me</Link>,
+              element:about,
             },
             {
               id:"4",
@@ -38,5 +42,4 @@ export default function Routes(){
   ],{
     basename:process.env.PUBLIC_URL
   })
-  return routes
 }
