@@ -2,14 +2,17 @@ import HomeMobile from 'pages/mobile/home'
 import HomeDesktop from 'pages/desktop/home'
 import AboutDesktop from 'pages/desktop/about'
 import AboutMobile from 'pages/mobile/about'
+import LoginMobile from 'pages/mobile/login'
+import LoginDesktop from 'pages/desktop/login'
 import { useMediaQuery } from 'react-responsive';
 
 function useLayoutSelector(){
-    const isMobile = useMediaQuery({maxWidth: 767})
+    const isMobile = useMediaQuery({maxWidth: 767,})
 
     return {
         home:isMobile ? <HomeMobile /> : <HomeDesktop />,
         about:isMobile ? <AboutMobile /> : <AboutDesktop />,
+        login:isMobile ? <LoginMobile /> : <LoginDesktop />,
     }
 }
 

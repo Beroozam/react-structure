@@ -1,43 +1,45 @@
 import {createBrowserRouter} from "react-router-dom";
 import useLayoutSelector from 'pages/pages'
 import SharedLayout from "pages/sharedLayout";
+import {protectedRoutes} from "helpers/isLoggedInHandler";
+import SecondLayout from 'pages/layout'
 
 export default function Routes(){
-  const {
-    home,
-      about
-  } = useLayoutSelector()
+  const layoutSelector = useLayoutSelector()
   return createBrowserRouter([
     {
       element:<SharedLayout />,
       path:'/',
+      loader: protectedRoutes,
       children:[
         {
           index:true,
-          id:"1",
-          element:home,
-          loader: async () => {
-            await new Promise((resolve) => setTimeout(resolve, 1000));
-            return null
-          }
+          element:layoutSelector.home,
+        },
+      ]
+    },
+    {
+      path:'about',
+      element:<SecondLayout />,
+      loader: protectedRoutes,
+      children:[
+        {
+          index:true,
+          element:layoutSelector.about,
         },
         {
-          id:"2",
-          path:'about',
-          children:[
-            {
-              index:true,
-              id:"3",
-              element:about,
-            },
-            {
-              id:"4",
-              path:'me',
-              element:<div>I AM BEHROUZ MOHAMMADI</div>,
-            }
-          ]
+          path:'me',
+          element:<div>I AM BEHROUZ MOHAMMADI</div>,
         }
       ]
+    },
+    {
+      path:'/login',
+      element:layoutSelector.login
+    },
+    {
+      path:"*",
+      element:<>404 not founding</>
     }
   ],{
     basename:process.env.PUBLIC_URL
