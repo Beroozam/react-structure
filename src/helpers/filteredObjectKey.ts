@@ -1,4 +1,4 @@
-export function filterUndefinedKeys(obj:{}) {
+export function filterUndefinedKeys<T extends object>(obj):object {
   const filteredObj = {};
 
   for (const key in obj) {
@@ -10,11 +10,11 @@ export function filterUndefinedKeys(obj:{}) {
   return filteredObj;
 }
 
-export function filterUndefinedKeysSecondWay(obj:{}) {
+export function filterUndefinedKeysSecondWay<T extends object>(obj):object {
   return Object.fromEntries(Object.entries(obj).filter(([key, value]) => value !== undefined));
 }
 
-export function filterUndefinedKeysThirdWay(obj: {}) {
+export function filterUndefinedKeysThirdWay<T extends object>(obj):object {
   let filteredObj = {};
 
   for (const key in obj) {

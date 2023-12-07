@@ -1,14 +1,11 @@
 import {createBrowserRouter} from "react-router-dom";
-import useLayoutSelector from 'pages/pages'
-import SharedLayout from "pages/sharedLayout";
+import useResponsiveLayoutSelector from 'pages/pages'
 import {protectedRoutes} from "helpers/isLoggedInHandler";
-import SecondLayout from 'pages/layout'
 
 export default function Routes(){
-  const layoutSelector = useLayoutSelector()
+  const layoutSelector = useResponsiveLayoutSelector()
   return createBrowserRouter([
     {
-      element:<SharedLayout />,
       path:'/',
       loader: protectedRoutes,
       children:[
@@ -16,21 +13,19 @@ export default function Routes(){
           index:true,
           element:layoutSelector.home,
         },
-      ]
-    },
-    {
-      path:'about',
-      element:<SecondLayout />,
-      loader: protectedRoutes,
-      children:[
         {
-          index:true,
-          element:layoutSelector.about,
+          path:'about',
+          children:[
+            {
+              index:true,
+              element:layoutSelector.about,
+            },
+            {
+              path:'me',
+              element:<div>I AM BEHROUZ MOHAMMADI</div>,
+            }
+          ]
         },
-        {
-          path:'me',
-          element:<div>I AM BEHROUZ MOHAMMADI</div>,
-        }
       ]
     },
     {
